@@ -25,12 +25,12 @@ export const sendToken = (
 
 	const options = {
 		maxAge: 10 * 24 * 60 * 60 * 1000,
+		sameSite: "none",
 		httpOnly: true,
 		secure: true,
-		path: "/",
 	};
 
-	res.cookie("token", token, options).status(statusCode).json({
+	res.status(statusCode).cookie("token", token, options).json({
 		success: true,
 		message,
 		user,
