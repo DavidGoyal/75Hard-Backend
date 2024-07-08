@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { CookieOptions, Response } from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { UserType } from "../types/types.js";
@@ -23,7 +23,7 @@ export const sendToken = (
 		process.env.JWT_SECRET_KEY as string
 	);
 
-	const options = {
+	const options: CookieOptions = {
 		maxAge: 10 * 24 * 60 * 60 * 1000,
 		sameSite: "none",
 		httpOnly: true,
