@@ -7,7 +7,9 @@ export const isAuthenticated = (
 	res: Response,
 	next: NextFunction
 ) => {
-	const token = req.cookies["token"];
+	const cookies = req.headers.cookie;
+
+	const token = cookies?.split("=")[1];
 
 	if (!token) {
 		return next(new ErrorHandler(401, "Unauthorized"));
