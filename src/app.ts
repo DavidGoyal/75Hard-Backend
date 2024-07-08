@@ -21,6 +21,7 @@ app.use(
 			"http://localhost:5174",
 			process.env.FRONTEND_URL!,
 		],
+		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})
 );
