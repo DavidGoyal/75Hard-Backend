@@ -5,6 +5,7 @@ import ErrorHandler from "../utils/utility.js";
 import { Photo } from "../models/photo.js";
 import cloudinary from "cloudinary";
 import { getBase64 } from "../utils/features.js";
+import { Task } from "../models/task.js";
 
 export const checkProgress = TryCatch(
 	async (req: Request, res: Response, next: NextFunction) => {
@@ -99,6 +100,12 @@ export const updateProgress = TryCatch(
 			return next(new ErrorHandler(404, "Progress not found"));
 		}
 
+		const tasks = await Task.find({ user: req.user, completed: true });
+
+		if (tasks.length < 5) {
+			return next(new ErrorHandler(404, "First complete all of your tasks"));
+		}
+
 		const photo = req.file;
 
 		if (!photo) {
@@ -120,6 +127,8 @@ export const updateProgress = TryCatch(
 		progress.days += 1;
 
 		await progress.save();
+
+		await Task.deleteMany({ user: req.user });
 
 		return res.status(200).json({
 			success: true,

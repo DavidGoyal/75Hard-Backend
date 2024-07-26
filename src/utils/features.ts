@@ -30,7 +30,7 @@ export const sendToken = (
 		secure: true,
 	};
 
-	res.status(statusCode).cookie("token", token, options).json({
+	res.status(statusCode).cookie("hardchallengecookie", token, options).json({
 		success: true,
 		message,
 		user,
