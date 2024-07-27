@@ -84,7 +84,7 @@ export const loginUser = TryCatch(
 
 export const logoutUser = TryCatch(
 	async (req: Request, res: Response, next: NextFunction) => {
-		res.cookie("token", null, {
+		res.cookie("hardchallengecookie", null, {
 			maxAge: 0,
 			httpOnly: true,
 			secure: true,
