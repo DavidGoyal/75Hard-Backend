@@ -82,7 +82,7 @@ export const deleteTask = TryCatch(
 );
 
 export const myTasks = TryCatch(async (req: Request, res: Response) => {
-	const tasks = await Task.find({ user: req.user });
+	const tasks = await Task.find({ user: req.user }).sort({ createdAt: -1 });
 	res.status(200).json({
 		success: true,
 		tasks,
