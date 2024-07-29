@@ -54,9 +54,13 @@ export const checkProgress = TryCatch(
 				});
 
 				await Photo.deleteMany({ user: req.user });
-				await Task.deleteMany({ user: req.user });
 			}
 		}
+
+		const date = new Date(Date.now());
+		date.setHours(0, 0, 0, 0);
+
+		await Task.deleteMany({ user: req.user, createdAt: { $lt: date } });
 
 		return res.status(200).json({
 			success: true,
